@@ -7,6 +7,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { challenge } from "@/data/challenge";
+import { cn } from "@/lib/utils";
 
 export default function Challenge({
   type,
@@ -18,23 +20,28 @@ export default function Challenge({
   if (type === "default") {
     return (
       <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {Array.from({ length: 30 }, (_, index) => index + 1).map(
-          (item, index) => (
+        {challenge[0].map((item, index) => (
+          <div
+            key={item.id}
+            className="flex flex-col rounded-md"
+          >
             <div
-              key={item}
-              className="flex flex-col rounded-md"
+              className={
+                "h-[200px] relative rounded-ss-md rounded-se-md flex justify-center items-center font-bold text-xl text-white"
+              }
             >
-              <div className="h-[200px] bg-sky-500 rounded-ss-md rounded-se-md flex justify-center items-center font-bold text-xl text-white">
-                <span>Ngày {index + 1}</span>
-              </div>
-              <div className="border-x border-b py-2 px-2 overflow-hidden">
-                <p className="text-center">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                </p>
-              </div>
+              <img
+                src={item.bg}
+                alt="img"
+                className="absolute top-0 right-0 left-0 bottom-0"
+              />
+              <span className="absolute bg-black/80 py-1 px-4 rounded-sm">Ngày {index + 1}</span>
             </div>
-          )
-        )}
+            <div className="border-x border-b py-2 px-2 overflow-hidden">
+              <p className="text-center">{item.content}</p>
+            </div>
+          </div>
+        ))}
       </div>
     );
   }
@@ -50,7 +57,7 @@ export default function Challenge({
           className="w-full max-w-xs"
         >
           <CarouselContent>
-            {Array.from({ length: 5 }).map((_, index) => (
+            {challenge[0].map((item, index) => (
               <CarouselItem key={index}>
                 <div
                   className={`flex flex-col rounded-md bg-[url('https://picsum.photos/id/230/320/200')]`}
@@ -62,9 +69,7 @@ export default function Challenge({
                   </div>
                   <div className="border-x border-b py-2 px-2 overflow-hidden bg-white">
                     {!edit ? (
-                      <p className="text-center">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      </p>
+                      <p className="text-center">{item.content}</p>
                     ) : (
                       <input
                         className="w-full border py-1 px-2 border-sky-500 outline-none rounded-sm"
