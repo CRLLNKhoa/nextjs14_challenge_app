@@ -33,7 +33,7 @@ export default function Challenge({
               <img
                 src={item.bg}
                 alt="img"
-                className="absolute top-0 right-0 left-0 bottom-0"
+                className="absolute top-0 right-0 left-0 bottom-0 w-full h-full object-fill"
               />
               <span className="absolute bg-black/80 py-1 px-4 rounded-sm">Ngày {index + 1}</span>
             </div>

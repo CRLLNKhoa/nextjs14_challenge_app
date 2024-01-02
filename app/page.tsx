@@ -1,9 +1,11 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Home() {
   const [isShow, setIsShow] = useState<boolean>(false);
+  const router = useRouter()
   return (
     <main
       className="flex min-h-screen flex-col items-center
@@ -64,7 +66,7 @@ export default function Home() {
             mạnh của việc thách thức bản thân trong vòng 30 ngày và khám phá khả
             năng tiềm ẩn của bạn!
           </p>
-          <button className="bg-black w-[200px] py-2 rounded-md mt-4 hover:bg-slate-900 duration-500">Thử ngay</button>
+          <button onClick={() => router.push("/challenge")} className="bg-black w-[200px] py-2 rounded-md mt-4 hover:bg-slate-900 duration-500">Thử ngay</button>
         </div>
       </div>
     </main>
