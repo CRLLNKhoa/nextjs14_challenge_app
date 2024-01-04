@@ -5,7 +5,8 @@ import { useState } from "react";
 
 export default function Home() {
   const [isShow, setIsShow] = useState<boolean>(false);
-  const router = useRouter()
+  const router = useRouter();
+
   return (
     <main
       className="flex min-h-screen flex-col items-center
@@ -13,7 +14,12 @@ export default function Home() {
      bg-no-repeat	bg-cover bg-center"
     >
       <div className="flex flex-col bg-black/60 p-4 w-full duration-1000 select-none">
-        <div className={cn(`duration-1000 max-h-[1000px] transition-all p-0 text-white overflow-hidden`, !isShow && "max-h-0 ")}>
+        <div
+          className={cn(
+            `duration-1000 max-h-[1000px] transition-all p-0 text-white overflow-hidden`,
+            !isShow && "max-h-0 "
+          )}
+        >
           <h1 className="text-xl font-bold">Tác giả</h1>
           <p>
             Xin chào, tôi tên là Lương Khoa (thường được biết với nickname
@@ -66,7 +72,12 @@ export default function Home() {
             mạnh của việc thách thức bản thân trong vòng 30 ngày và khám phá khả
             năng tiềm ẩn của bạn!
           </p>
-          <button onClick={() => router.push("/challenge")} className="bg-black w-[200px] py-2 rounded-md mt-4 hover:bg-slate-900 duration-500">Thử ngay</button>
+          <button
+            onClick={() => router.push("/challenge")}
+            className="bg-black w-[200px] py-2 rounded-md mt-4 hover:bg-slate-900 duration-500"
+          >
+            Thử ngay
+          </button>
         </div>
       </div>
     </main>

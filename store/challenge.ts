@@ -1,4 +1,3 @@
-import { challenge } from "@/data/challenge";
 import { create } from "zustand";
 
 export const useStoreChallenge = create((set) => ({

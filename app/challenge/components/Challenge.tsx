@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/carousel";
 import { useStoreChallenge } from "@/store/challenge";
 import { TChallenge } from "@/types";
+import { cn } from "@/lib/utils";
 
 export default function Challenge({
   type,
@@ -19,40 +20,59 @@ export default function Challenge({
 }) {
   const challenge = useStoreChallenge((state: any) => state.challenge);
   const challengeEdit = useStoreChallenge((state: any) => state.challengeEdit);
-  const setChallengeEdit = useStoreChallenge((state: any) => state.setChallengeEdit);
+  const setChallengeEdit = useStoreChallenge(
+    (state: any) => state.setChallengeEdit
+  );
   const [data, setData] = useState(challenge);
 
   useEffect(() => {
-    setData(challenge)
+    setData(challenge);
   }, [challenge]);
 
-  function handleChangeEdit(id:any, content: object | null | "" | undefined){
-    const index = data.findIndex((item: { id: number; }) => item.id === id);
+  function handleChangeEdit(id: any, content: object | null | "" | undefined) {
+    const index = data.findIndex((item: { id: number }) => item.id === id);
     if (index !== -1) {
       // Tìm thấy phần tử với ID đã cho
       // Cập nhật phần tử tại vị trí index
       data[index] = { ...data[index], ...content };
-      setChallengeEdit(data)
+      setChallengeEdit(data);
       return true; // Trả về true để thể hiện rằng cập nhật đã thành công
     }
-  
+
     // Không tìm thấy phần tử với ID đã cho
     return false; // Trả về false để thể hiện rằng không có phần tử nào được cập nhật
-  
   }
 
-  if(data.length === 0){
-    return(
+  function reverseAValue(id: any,checked: boolean | any) {
+    const index = data.findIndex((item: { id: number }) => item.id === id);
+    if (index !== -1) {
+      // Tìm thấy phần tử với ID đã cho
+      // Cập nhật phần tử tại vị trí index
+      data[index] = { ...data[index], ...{complete: checked} };
+      setChallengeEdit(data);
+      return true; // Trả về true để thể hiện rằng cập nhật đã thành công
+    }
+
+    // Không tìm thấy phần tử với ID đã cho
+    return false; // Trả về false để thể hiện rằng không có phần tử nào được cập nhật
+  }
+
+  if (data.length === 0) {
+    return (
       <div className="mt-12 flex justify-center items-center flex-col">
-        <img src="/icons/notdata.svg" alt="not" className="w-[100px] mb-4 opacity-80" />
-        <h1 className="text-lg">Bạn chưa tạo thử thách</h1>
+        <img
+          src="/icons/notdata.svg"
+          alt="not"
+          className="w-[100px] mb-4 opacity-80"
+        />
+        <h1 className="text-lg">Bạn chưa tạo kế hoạch</h1>
       </div>
-    )
+    );
   }
 
   if (type === "default") {
     return (
-      <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6 bg-slate-100 lg:p-4 rounded-md">
+      <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6 bg-slate-100 p-4 rounded-md">
         {data.map((item: TChallenge, index: number) => (
           <div
             key={item.id}
@@ -74,16 +94,36 @@ export default function Challenge({
               </span>
             </div>
             <div className="border-x border-b py-2 px-2 overflow-hidden bg-white">
-            {!edit ? (
-                      <p className="text-center">{item.content}</p>
-                    ) : (
-                      <input
-                        className="w-full border py-1 px-2 border-sky-500 outline-none rounded-sm"
-                        type="text"
-                        defaultValue={item.content}
-                        onChange={(e) => handleChangeEdit(item.id, {content: e.target.value})}
-                      />
-                    )}
+              {!edit ? (
+                <p
+                  className={cn(
+                    "text-center",
+                    item.complete && "line-through"
+                  )}
+                >
+                  {item.content}
+                </p>
+              ) : (
+                <input
+                  className="w-full border py-1 px-2 border-sky-500 outline-none rounded-sm"
+                  type="text"
+                  defaultValue={item.content}
+                  onChange={(e) =>
+                    handleChangeEdit(item.id, { content: e.target.value })
+                  }
+                />
+              )}
+              {edit && (
+                <div className="flex gap-4">
+                  <label htmlFor={`id_${item.id}`}>Đã hoàn thành:</label>
+                  <input
+                    onChange={(e) => reverseAValue(item.id, {complete: e.target.checked})}
+                    type="checkbox"
+                    defaultChecked={item.complete}
+                    id={`id_${item.id}`}
+                  />
+                </div>
+              )}
             </div>
           </div>
         ))}
@@ -118,14 +158,28 @@ export default function Challenge({
                   </div>
                   <div className="border-x border-b py-2 px-2 overflow-hidden bg-white">
                     {!edit ? (
-                      <p className="text-center">{item.content}</p>
+                      <p className={cn("text-center", item.complete && "line-through")}>{item.content}</p>
                     ) : (
                       <input
                         className="w-full border py-1 px-2 border-sky-500 outline-none rounded-sm"
                         type="text"
-                        value={item.content}
+                        defaultValue={item.content}
+                        onChange={(e) =>
+                          handleChangeEdit(item.id, { content: e.target.value })
+                        }
                       />
                     )}
+                      {edit && (
+                <div className="flex gap-4 mt-2 cursor-pointer">
+                  <label className="cursor-pointer" htmlFor={`id_${item.id}`}>Đã hoàn thành:</label>
+                  <input
+                    onChange={(e) => reverseAValue(item.id, {complete: e.target.checked})}
+                    type="checkbox"
+                    defaultChecked={item.complete}
+                    id={`id_${item.id}`}
+                  />
+                </div>
+              )}
                   </div>
                 </div>
               </CarouselItem>

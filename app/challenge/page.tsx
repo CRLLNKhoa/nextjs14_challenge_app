@@ -3,7 +3,6 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import Challenge from "./components/Challenge";
 import { useStoreChallenge } from "@/store/challenge";
-import { challenge } from "@/data/challenge";
 import AlertComponent from "./components/Alert";
 import AddChallenge from "./components/AddChallenge";
 
@@ -12,12 +11,12 @@ export default function Page() {
   const edit = useStoreChallenge((state: any) => state.edit);
   const style = useStoreChallenge((state: any) => state.style);
   const toogleStyle = useStoreChallenge((state: any) => state.toogleStyle);
-  const setChallengeEdit = useStoreChallenge((state: any) => state.setChallengeEdit);
+  const setChallengeEdit = useStoreChallenge(
+    (state: any) => state.setChallengeEdit
+  );
   const setChallenge = useStoreChallenge((state: any) => state.setChallenge);
   const challenge = useStoreChallenge((state: any) => state.challenge);
   const challengeEdit = useStoreChallenge((state: any) => state.challengeEdit);
-
-  console.log(challenge)
 
   function handleToogleStyle() {
     switch (style) {
@@ -32,13 +31,17 @@ export default function Page() {
     }
   }
 
-  function handleEdit(){
-    setChallengeEdit(challenge)
-    toogleEdit()
+  function handleEdit() {
+    setChallengeEdit(challenge);
+    toogleEdit();
   }
 
-  function handleSave(){
-    setChallenge(challengeEdit)
+  function handleSave() {
+    setChallenge(challengeEdit);
+  }
+
+  function handleDeleteChallenge(){
+    setChallenge([]);
   }
 
   return (
@@ -63,7 +66,10 @@ export default function Page() {
             />
             Bật/tắt chỉnh sửa
           </Button>
-          <Button onClick={handleSave} className="flex gap-2 items-center bg-sky-500 hover:bg-sky-600 duration-500">
+          <Button
+            onClick={handleSave}
+            className="flex gap-2 items-center bg-sky-500 hover:bg-sky-600 duration-500"
+          >
             <img
               src="/icons/save.svg"
               alt="logo"
@@ -72,6 +78,7 @@ export default function Page() {
             Lưu thử thách
           </Button>
           <Button
+          onClick={handleDeleteChallenge}
             variant={"destructive"}
             className="flex gap-2 items-center"
           >
