@@ -57,7 +57,7 @@ export default function AddChallenge() {
       setPercent(100);
     }, 4000);
     setTimeout(() => {
-      setChallenge(challenge[2]);
+      setChallenge(challenge[2].challenges);
       setIsLoading(false);
       setPercent(0);
       successAdd()
@@ -77,7 +77,7 @@ export default function AddChallenge() {
       setPercent(100);
     }, 4000);
     setTimeout(() => {
-      setChallenge(challenge[e]);
+      setChallenge(challenge[e].challenges);
       setIsLoading(false);
       setPercent(0);
       successAdd()
@@ -136,9 +136,16 @@ export default function AddChallenge() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectItem value="0">Âm nhạc 1</SelectItem>
-                    <SelectItem value="1">Thể dục</SelectItem>
-                    <SelectItem value="2">Truyền thông kênh</SelectItem>
+                    <SelectItem value="0">Thoát ra vùng an toàn</SelectItem>
+                    <SelectItem value="1">Tự chăm sóc bản thân</SelectItem>
+                    <SelectItem value="2">Đi bộ</SelectItem>
+                    <SelectItem value="3">Giới thiệu bản thân</SelectItem>
+                    <SelectItem value="4">Đăng story</SelectItem>
+                    <SelectItem value="5">Story điện ảnh</SelectItem>
+                    <SelectItem value="6">30 ca khúc</SelectItem>
+                    <SelectItem value="7">Âm nhạc</SelectItem>
+                    <SelectItem value="8">Nâng cao sức khỏe</SelectItem>
+                    <SelectItem value="9">Xây dựng kênh truyền thông</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>

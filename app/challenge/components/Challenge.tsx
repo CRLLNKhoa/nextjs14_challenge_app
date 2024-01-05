@@ -29,12 +29,12 @@ export default function Challenge({
     setData(challenge);
   }, [challenge]);
 
-  function handleChangeEdit(id: any, content: object | null | "" | undefined) {
+  function handleChangeEdit(id: any, challenge: object | null | "" | undefined) {
     const index = data.findIndex((item: { id: number }) => item.id === id);
     if (index !== -1) {
       // Tìm thấy phần tử với ID đã cho
       // Cập nhật phần tử tại vị trí index
-      data[index] = { ...data[index], ...content };
+      data[index] = { ...data[index], ...challenge };
       setChallengeEdit(data);
       return true; // Trả về true để thể hiện rằng cập nhật đã thành công
     }
@@ -101,13 +101,13 @@ export default function Challenge({
                     item.complete && "line-through"
                   )}
                 >
-                  {item.content}
+                  {item.challenge}
                 </p>
               ) : (
                 <input
                   className="w-full border py-1 px-2 border-sky-500 outline-none rounded-sm"
                   type="text"
-                  defaultValue={item.content}
+                  defaultValue={item.challenge}
                   onChange={(e) =>
                     handleChangeEdit(item.id, { content: e.target.value })
                   }
@@ -158,12 +158,12 @@ export default function Challenge({
                   </div>
                   <div className="border-x border-b py-2 px-2 overflow-hidden bg-white">
                     {!edit ? (
-                      <p className={cn("text-center", item.complete && "line-through")}>{item.content}</p>
+                      <p className={cn("text-center", item.complete && "line-through")}>{item.challenge}</p>
                     ) : (
                       <input
                         className="w-full border py-1 px-2 border-sky-500 outline-none rounded-sm"
                         type="text"
-                        defaultValue={item.content}
+                        defaultValue={item.challenge}
                         onChange={(e) =>
                           handleChangeEdit(item.id, { content: e.target.value })
                         }

@@ -47,7 +47,7 @@ export default function Page() {
   return (
     <div className="flex justify-center">
       <div className="container max-w-screen-lg p-4 text-center">
-        <h1 className="font-bold text-2xl">30 Ngày thử thách</h1>
+        <h1 className="font-bold text-2xl">Thử thách 30 ngày</h1>
         <p>
           Chào mừng bạn đến với thử thách 30 ngày - hành trình biến đổi bản thân
           và khám phá tiềm năng mới!
