@@ -46,7 +46,7 @@ export default function AddChallenge() {
 
   function handleShuffleChallenge() {
     setIsLoading(true);
-    const numberRandom = Math.floor(Math.random() * 10);
+    const numberRandom = Math.floor(Math.random() * 9);
     setTimeout(() => {
       setPercent(20);
     }, 1000);
@@ -57,7 +57,7 @@ export default function AddChallenge() {
       setPercent(100);
     }, 4000);
     setTimeout(() => {
-      setChallenge(challenge[2].challenges);
+      setChallenge(challenge[numberRandom].challenges);
       setIsLoading(false);
       setPercent(0);
       successAdd()
