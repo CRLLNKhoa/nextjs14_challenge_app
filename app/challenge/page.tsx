@@ -5,6 +5,7 @@ import Challenge from "./components/Challenge";
 import { useStoreChallenge } from "@/store/challenge";
 import AlertComponent from "./components/Alert";
 import AddChallenge from "./components/AddChallenge";
+import html2canvas from "html2canvas";
 
 export default function Page() {
   const toogleEdit = useStoreChallenge((state: any) => state.toogleEdit);
@@ -40,7 +41,7 @@ export default function Page() {
     setChallenge(challengeEdit);
   }
 
-  function handleDeleteChallenge(){
+  function handleDeleteChallenge() {
     setChallenge([]);
   }
 
@@ -78,7 +79,7 @@ export default function Page() {
             Lưu thử thách
           </Button>
           <Button
-          onClick={handleDeleteChallenge}
+            onClick={handleDeleteChallenge}
             variant={"destructive"}
             className="flex gap-2 items-center"
           >
@@ -103,6 +104,13 @@ export default function Page() {
             Chế độ xem
           </Button>
           <Button
+            onClick={() =>
+              html2canvas(document.body).then(function (canvas) {
+                var imageData = canvas.toDataURL('image/jpg');
+                var newData = imageData.replace(/^data:image\/jpg/, "data:application/octet-stream")
+                document.getElementById("download")?.setAttribute("href",newData)
+              })
+            }
             variant={"destructive"}
             className="flex gap-2 items-center bg-purple-500"
           >
@@ -111,7 +119,7 @@ export default function Page() {
               alt="logo"
               className="w-6 h-6"
             />
-            Xóa kế hoạch đã lưu
+            <a id="download" download={"image.jpg"}>Xóa kế hoạch đã lưu</a>
           </Button>
         </div>
         <Challenge
